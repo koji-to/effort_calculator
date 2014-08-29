@@ -1,0 +1,38 @@
+1. generate_git_clone_sh.r
+2. git_clone.sh
+3. generate_git_log_main_sh.r
+4. git_log_main.sh
+5. generate_git_log_change_sh.r
+6. git_log_change.sh
+7. (optional) Change character code of log files to UTF-8
+8. format_main_log_to_csv.r
+9. bind_main_logs.r
+10. downsize_change_log.r
+11. format_change_log_to_csv.r
+12. bind_main_logs.r
+13. merge_main_change_logs.r
+14. calculate_metrics.r
+
+< foo >: directory named foo
+[ bar ]: a set of files and firectory
+<working_directory>---+---[.r scripts]
+                      |
+                      +---[.sh scripts]
+                      |
+                      +---<git_repo>---[git repository]
+                      |
+                      +---<git_log_main>---[original main log files(.log)]
+                      |
+                      +---<git_log_main_proc>---[processed main log files(proc_*.csv)]
+                      |
+                      +---<git_log_change>---[original change log files(.log)]
+                      |
+                      +---<git_log_change_light>---[downsized change log files(light_*.csv)]
+                      |
+                      +---<git_log_change_proc>---[processed change log files(proc_*.csv)]
+                      |
+                      +---git_log_main_bind.csv :binded file of all processed main log files
+                      |
+                      +---git_log_change_bind.csv  :binded file of all processed change log files
+                      |
+                      +---git_log_main_change_merged.csv :merged file of git_log_main_bind.csv and git_log_changed_bind.csv
