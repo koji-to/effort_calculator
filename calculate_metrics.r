@@ -21,7 +21,7 @@ for(i in 1:num_release){
   
   activity.df[i,1]<-paste(newest_relase_date-release_cycle*(i-1),"-",newest_relase_date-release_cycle*i,sep="")
   # In original paper, non-fulltime developers' effort is caliculated by commit_count/threshold, so using ">="
-  # http://dl.acm.org/citation.cfm?id=1287689
+  # http://gsyc.urjc.es/~grex/repro/2014-msr-effort/msr14-robles-estimating-effort.pdf
   fulltime_auth.df<-subset(auth_freq.df,auth_freq.df$commit_count>=threshold)
   parttime_auth.df<-subset(auth_freq.df,auth_freq.df$commit_count<threshold)
   parttime_auth.df$effort<-parttime_auth.df$commit_count/threshold
