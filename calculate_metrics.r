@@ -33,7 +33,7 @@ for(i in 1:num_release){
   activity.df$del_lines[i]<-sum(git_log_tmp.df$del_lines)
   activity.df$change_files[i]<-sum(git_log_tmp.df$change_files)
   
-  #temporary dataframe output
-  write.csv(auth_freq.df,paste("author_activity_from_",(newest_relase_date-release_cycle*i),"_to_",(newest_relase_date-release_cycle*(i-1)),".csv",sep=""),row.names=F)
+  ##temporary dataframe output
+  #write.csv(auth_freq.df,paste("author_activity_from_",(newest_relase_date-release_cycle*i),"_to_",(newest_relase_date-release_cycle*(i-1)),".csv",sep=""),row.names=F)
 }
 write.csv(activity.df,paste("chromium_activity_metrics.csv",sep=""),row.names=F)
