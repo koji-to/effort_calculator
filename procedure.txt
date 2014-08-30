@@ -1,3 +1,5 @@
+*procefure
+
 1. generate_git_clone_sh.r
 2. git_clone.sh
 3. generate_git_log_main_sh.r
@@ -12,6 +14,9 @@
 12. bind_main_logs.r
 13. merge_main_change_logs.r
 14. calculate_metrics.r
+
+
+*directory structure
 
 < foo >: directory named foo
 [ bar ]: a set of files and firectory
