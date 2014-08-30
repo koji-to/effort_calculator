@@ -1,6 +1,6 @@
 ##### preprocessing downsized change logs and change to .csv
 ##### !!!Warning!!! This script may take MANY hours. !!!Warning!!! 
-##### In my situation, it takes over 3 days. Be careful.
+##### In my environment, it takes over 3 days. Be careful.
 
 file_list.df<-read.table("git_log_change/git_log_change_list.txt",header=F)
 for(i in 1:nrow(file_list.df)){
