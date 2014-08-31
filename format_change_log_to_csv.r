@@ -3,6 +3,7 @@
 ##### In my environment, it takes over 3 days. Be careful.
 
 file_list.df<-read.table("git_log_change/git_log_change_list.txt",header=F)
+dir.create("git_log_change_proc/")
 for(i in 1:nrow(file_list.df)){
   open_file_name<-paste("git_log_change_light/light_",file_list.df[i,1],sep="")
   if(file.access(open_file_name)==0){

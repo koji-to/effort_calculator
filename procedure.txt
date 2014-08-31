@@ -1,6 +1,5 @@
 *procefure
 
-0. (optional) Make directory "git_repo","git_log_main","git_log_main_proc","git_log_change","git_log_change_light" and "git_log_change_proc"
 1. generate_git_clone_sh.r
 2. git_clone.sh
 3. generate_git_log_main_sh.r

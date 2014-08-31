@@ -1,5 +1,7 @@
 ####### preprocessing main logs and change to .csv
 file_list.df<-read.table("git_log_main/git_log_main_list.txt",header=F)
+dir.create("git_log_main_proc")
+
 for(i in 1:nrow(file_list.df)){
   open_file_name<-paste("git_log_main/",file_list.df[i,1],sep="")
   if(file.access(open_file_name)==0){
