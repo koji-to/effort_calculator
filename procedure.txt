@@ -1,4 +1,4 @@
-*procefure
+*procedure
 
 1. generate_git_clone_sh.r
 2. git_clone.sh
