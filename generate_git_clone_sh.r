@@ -1,5 +1,5 @@
 ######## generate .sh script for "git clone"
-##### Set git directory structure file path
+##### Set git directory structure file path from chromium project
 gitweb<-"https://git.chromium.org/gitweb/?a=project_index"
 #####
 shell.df<-read.csv(gitweb,header=F)
@@ -15,3 +15,6 @@ dir.create("git_repo")
 
 ### save git repository tree in local
 write.table(shell.df,"chromium_git_repo_tree.txt",col.names=F,row.names=F,quote=F,append=F)
+
+##### This scriot is only for The Chromium Project
+##### in other(not Chromium) project, run "git clone --recursive <foo>" and "ls -aR | grep \.git:$ | sed -e 's/\.\/\(.*\):/\1/' in top directory
