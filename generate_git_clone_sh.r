@@ -1,6 +1,6 @@
 ####### generate .sh script for "git clone"
 ##### Set git directory structure file path
-gitweb<-"https://git.chromium.org/gitweb/?a=project_index"
+gitweb<-"http://git.chromium.org/gitweb/?a=project_index"
 #####
 shell.df<-read.csv(gitweb,header=F)
 
