@@ -8,11 +8,11 @@ write.table(shell_top.df,"git_log_main.sh",row.names=F,col.names=F,quote=F,appen
 
 ### replace by regular expression.
 shell_slash.df<-data.frame(shell.df[grep("/",shell.df[,1]),1])
-shell_slash.df[,1]<-gsub("^(.*)\\/(.*)\\.git","cd git_repo\\n\\/\\1\\/\\2\\\nout=\\2\\.git\\\ngit log --date=iso --pretty=format:\"\\[\\[SOF\\]\\]%H<chromium>%ae<chromium>%ad<chromium>%ce<chromium>%cd\\[\\[EOF\\]\\]\" >> \"${logdir}${out}_main.log\"\\\ncd $hmdir",shell_slash.df[,1])
+shell_slash.df[,1]<-gsub("^(.*)\\/(.*)\\.git","cd git_repo\\/\\1\\/\\2\\\nout=\\2\\.git\\\ngit log --date=iso --pretty=format:\"\\[\\[SOF\\]\\]%H<chromium>%ae<chromium>%ad<chromium>%ce<chromium>%cd\\[\\[EOF\\]\\]\" >> \"${logdir}${out}_main.log\"\\\ncd $hmdir",shell_slash.df[,1])
 write.table(shell_slash.df,"git_log_main.sh",row.names=F,col.names=F,quote=F,append=T)
 
 shell_without_slash.df<-data.frame(shell.df[-(grep("/",shell.df[,1])),])
-shell_without_slash.df[,1]<-gsub("^(.*)\\.git","cd git_repo\\n\\/\\1\\\nout=\\1\\.git\\\ngit log --date=iso --pretty=format:\"\\[\\[SOF\\]\\]%H<chromium>%ae<chromium>%ad<chromium>%ce<chromium>%cd\\[\\[EOF\\]\\]\" >> \"${logdir}${out}_main.log\"\\\ncd $hmdir",shell_without_slash.df[,1])
+shell_without_slash.df[,1]<-gsub("^(.*)\\.git","cd git_repo\\/\\1\\\nout=\\1\\.git\\\ngit log --date=iso --pretty=format:\"\\[\\[SOF\\]\\]%H<chromium>%ae<chromium>%ad<chromium>%ce<chromium>%cd\\[\\[EOF\\]\\]\" >> \"${logdir}${out}_main.log\"\\\ncd $hmdir",shell_without_slash.df[,1])
 write.table(shell_without_slash.df,"git_log_main.sh",row.names=F,col.names=F,quote=F,append=T)
 
 dir.create("git_log_main")
