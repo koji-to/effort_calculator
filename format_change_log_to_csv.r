@@ -9,8 +9,8 @@ for(i in 1:nrow(file_list.df)){
   if(file.access(open_file_name)==0){
     light_change_log.df<-data.frame(readLines(open_file_name,encoding="UTF-8"))
     if(nrow(data.frame(light_change_log.df))!=0){
-      commit_data.df<-data.frame(matrix(0,1,5))
-      names(commit_data.df)<-c("commi_hash","bug_flag","add_lines","del_lines","changed_files")
+      commit_data.df<-data.frame(matrix(0,1,6))
+      names(commit_data.df)<-c("commi_hash","bug_flag","refactoring_flag","add_lines","del_lines","changed_files")
       proc_change_log.df<-commit_data.df
       for(j in 1:nrow(light_change_log.df)){
         if(length(grep("\\[\\[SOF\\]\\][0-9a-f]{40}\\[\\[EOF\\]\\]$",light_change_log.df[j,1],perl=T))!=0){
@@ -18,21 +18,29 @@ for(i in 1:nrow(file_list.df)){
             proc_change_log.df<-rbind(proc_change_log.df,commit_data.df)
           }
           commit_data.df[1]<-gsub("^\\[\\[SOF\\]\\]([0-9a-f]{40})\\[\\[EOF\\]\\]$","\\1",light_change_log.df[j,1])
-          commit_data.df[2]<-""
+          commit_data.df[2]<-0
           commit_data.df[3]<-0
           commit_data.df[4]<-0
-          commit_data.df[5]<-1
+          commit_data.df[5]<-0
+          commit_data.df[6]<-0
         }else if(length(grep("BUG=|fix",light_change_log.df[j,1],perl=T,ignore.case=T))!=0){
-          #remove "pre'fix'" or "test/cctest/test-'fix'ed-dtoa.cc" etc. foolish.
+          #remove "pre'fix'" or "test/cctest/test-'fix'ed-dtoa.cc" etc. poor way.
           if(length(grep("^\\d+\\t\\d+\\t[\\w|\\W]+$",light_change_log.df[j,1],perl=TRUE))!=0){
             
           }else{
             commit_data.df[2]<-1
           }
+        }else if(length(grep("refactor(ing|ed)",light_change_log.df[j,1],perl=T,ignore.case=T))!=0){
+          #remove "'" or "" etc. stupid way.
+          if(length(grep("^\\d+\\t\\d+\\t[\\w|\\W]+$",light_change_log.df[j,1],perl=TRUE))!=0){
+            
+          }else{
+            commit_data.df[3]<-1
+          }
         }else if(length(grep("^\\d+\\t\\d+\\t[\\w|\\W]+$",light_change_log.df[j,1],perl=TRUE))!=0){
-          commit_data.df[3]<-as.numeric(gsub("^(\\d+)\\t\\d+\\t[\\w|\\W]+$","\\1",light_change_log.df[j,1],perl=TRUE))+as.numeric(commit_data.df[3])
-          commit_data.df[4]<-as.numeric(gsub("^\\d+\\t(\\d+)\\t[\\w|\\W]+$","\\1",light_change_log.df[j,1],perl=TRUE))+as.numeric(commit_data.df[4])
-          commit_data.df[5]<-as.numeric(commit_data.df[5])+1
+          commit_data.df[4]<-as.numeric(gsub("^(\\d+)\\t\\d+\\t[\\w|\\W]+$","\\1",light_change_log.df[j,1],perl=TRUE))+as.numeric(commit_data.df[4])
+          commit_data.df[5]<-as.numeric(gsub("^\\d+\\t(\\d+)\\t[\\w|\\W]+$","\\1",light_change_log.df[j,1],perl=TRUE))+as.numeric(commit_data.df[5])
+          commit_data.df[6]<-as.numeric(commit_data.df[6])+1
         }
       }
       proc_change_log.df<-rbind(proc_change_log.df,commit_data.df)
@@ -41,6 +49,6 @@ for(i in 1:nrow(file_list.df)){
       
     }
   }
-gc()
-gc()
+  gc()
+  gc()
 }

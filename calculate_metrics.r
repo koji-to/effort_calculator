@@ -27,8 +27,9 @@ for(i in 1:num_release){
   parttime_auth.df$effort<-parttime_auth.df$commit_count/threshold
   activity.df[i,2]<-nrow(fulltime_auth.df)+sum(parttime_auth.df$effort)
   activity.df$commits[i]<-nrow(git_log_tmp.df)
-  activity.df$bugfix_commits[i]<-nrow(subset(git_log_tmp.df,is.na(git_log_tmp.df$bug_fix)==FALSE))
-  activity.df$newfunc_commits[i]<-nrow(git_log_tmp.df)-effort.df$bugfix_commits[i]
+  activity.df$bugfix_commits[i]<-nrow(subset(git_log_tmp.df,git_log_tmp.df$bug_fix==1))
+  activity.df$refactoring_commits[i]<-nrow(subset(git_log_tmp.df,git_log_tmp.df$refactoring_flag==1))
+  activity.df$newfunc_commits[i]<-nrow(git_log_tmp.df)-activity.df$bugfix_commits[i]-activity.df$refactoring_commits[i]
   activity.df$add_lines[i]<-sum(git_log_tmp.df$add_lines)
   activity.df$del_lines[i]<-sum(git_log_tmp.df$del_lines)
   activity.df$change_files[i]<-sum(git_log_tmp.df$change_files)
