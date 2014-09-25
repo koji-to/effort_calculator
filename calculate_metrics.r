@@ -4,7 +4,7 @@
 release_cycle<-42#days(= 6 weeks = 1.5month)
 threshold<-2#commits/release_cycle
 newest_relase_date<-as.Date("2014-06-20")#ver37
-num_release<-8#: a number of past release to trace
+num_release<-24#: a number of past release to trace
 
 ##### processing section #####
 # import merged git log file
@@ -19,13 +19,14 @@ for(i in 1:num_release){
   auth_freq.df<-data.frame(table(git_log_tmp.df$author_mail))
   names(auth_freq.df)<-c("author_mail","commit_count")
   
-  activity.df[i,1]<-paste(newest_relase_date-release_cycle*(i-1),"-",newest_relase_date-release_cycle*i,sep="")
+  activity.df$Duration[i]<-paste(newest_relase_date-release_cycle*(i-1),"-",newest_relase_date-release_cycle*i,sep="")
   # In original paper, non-fulltime developers' effort is caliculated by commit_count/threshold, so using ">="
   # http://gsyc.urjc.es/~grex/repro/2014-msr-effort/msr14-robles-estimating-effort.pdf
   fulltime_auth.df<-subset(auth_freq.df,auth_freq.df$commit_count>=threshold)
   parttime_auth.df<-subset(auth_freq.df,auth_freq.df$commit_count<threshold)
   parttime_auth.df$effort<-parttime_auth.df$commit_count/threshold
-  activity.df[i,2]<-nrow(fulltime_auth.df)+sum(parttime_auth.df$effort)
+  # 28 = 1 month
+  activity.df$Effort[i]<-(nrow(fulltime_auth.df)+sum(parttime_auth.df$effort))*(release_cycle/28)
   activity.df$commits[i]<-nrow(git_log_tmp.df)
   activity.df$bugfix_commits[i]<-nrow(subset(git_log_tmp.df,git_log_tmp.df$bug_fix==1))
   activity.df$refactoring_commits[i]<-nrow(subset(git_log_tmp.df,git_log_tmp.df$refactoring_flag==1))
