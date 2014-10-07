@@ -5,14 +5,18 @@ Created on Sun Oct 05 04:36:14 2014
 @author: koji-to
 """
 import os
+import os.path
+import sys
 import time
 start = time.time()
 from pandas import Series, DataFrame
 import pandas as pd
 from types import *
 import re
-os.chdir('E:/python_test')
+os.chdir(sys.path[0])
+os.chdir('../')
 os.mkdir("git_log_change_proc")
+
 file_list=open('git_log_change/git_log_change_list.txt')
 log_list=file_list.readlines()
 file_list.close()
@@ -53,17 +57,18 @@ for log_file in log_list:
                 f_refact=0
             log=input_file.readline()
         input_file.close()    
-        output_file=open(('git_log_change_proc/proc_'+log_file[:-1]),'w')
-        for k in range(len(Dic)):
-            each_hash_df=pd.DataFrame.from_dict(Dic[Dic.keys()[k]])
-            out_str_fname=len(each_hash_df.columns)
-            out_str_addlines=each_hash_df.sum(axis=1)['add_lines']
-            out_str_dellines=each_hash_df.sum(axis=1)['del_lines']
-            out_str_bugfix=each_hash_df.sum(axis=1)['f_bugfix']
-            out_str_refact=each_hash_df.sum(axis=1)['f_refact']
-            out_str_hash=Dic.keys()[k]
-            output_file.write(out_str_hash+','+str(out_str_fname)+','+str(out_str_addlines)+','+str(out_str_dellines)+','+str(out_str_bugfix)+','+str(out_str_refact)+'\n')
-        output_file.close()
-        del Dic
+	if 'Dic' in locals():
+	        output_file=open(('git_log_change_proc/proc_'+log_file[:-1]),'w')
+       		for k in range(len(Dic)):
+	            each_hash_df=pd.DataFrame.from_dict(Dic[Dic.keys()[k]])
+        	    out_str_fname=len(each_hash_df.columns)
+	            out_str_addlines=each_hash_df.sum(axis=1)['add_lines']
+	            out_str_dellines=each_hash_df.sum(axis=1)['del_lines']
+        	    out_str_bugfix=each_hash_df.sum(axis=1)['f_bugfix']
+	            out_str_refact=each_hash_df.sum(axis=1)['f_refact']
+        	    out_str_hash=Dic.keys()[k]
+	            output_file.write(out_str_hash+','+str(out_str_fname)+','+str(out_str_addlines)+','+str(out_str_dellines)+','+str(out_str_bugfix)+','+str(out_str_refact)+'\n')
+	        output_file.close()
+	        del Dic
 elapsed_time = time.time() - start
 print("elapsed_time_{0}".format(elapsed_time))

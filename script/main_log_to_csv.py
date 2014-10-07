@@ -7,13 +7,15 @@ Created on Sun Oct 05 02:19:03 2014
 ####### preprocessing main logs and change to .csv
 import os
 import os.path
+import sys
 import time
 start = time.time()
 from pandas import Series, DataFrame
 import pandas as pd
 from types import *
 import re
-os.chdir('E:/python_test')
+os.chdir(sys.path[0])
+os.chdir('../')
 os.mkdir("git_log_main_proc")
 
 file_list=open('git_log_main/git_log_main_list.txt')
