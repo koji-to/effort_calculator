@@ -1,6 +1,5 @@
 #!/bin/sh
 #git clone
-#should be tested "git clone --recursive"
 homedir="`pwd`"
 wget http://git.chromium.org/gitweb/?a=project_index -O chromium_git_repo_tree.txt
 mkdir git_repo
