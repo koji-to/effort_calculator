@@ -14,6 +14,6 @@ for(i in 1:nrow(file_list.df)){
     }
   }
 }
-names(proc_change_log_bind.df)<-c("commit_hash","bug_fix","refactoring_flag","add_lines","del_lines","change_files")
+names(proc_change_log_bind.df)<-c("commit_hash","change_files","add_lines","del_lines","bug_fix","refactoring_flag")
 proc_change_log_bind.df<-unique(proc_change_log_bind.df)
 write.csv(proc_change_log_bind.df,"git_log_change_bind.csv",row.names=F)
