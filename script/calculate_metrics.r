@@ -1,12 +1,24 @@
 #extract commit log from each relase cycle
 
-##### setting section #####
-release_cycle<-42#days(= 6 weeks = 1.5month)
-threshold<-2#commits/release_cycle
-newest_relase_date<-as.Date("2014-06-20")#ver37
-num_release<-24#: a number of past release to trace
+##### set from args #####
+args<-commandArgs(trailingOnly=T)
 
-##### processing section #####
+#check the number of arguments
+if(length(args) == 0){
+  print("use default setting (for Chromium), --args 42 2 2014-06-20 24")
+  release_cycle<-42#days(= 6 weeks = 1.5month)
+  threshold<-2#commits/release_cycle
+  newest_relase_date<-as.Date("2014-06-20")#ver37
+  num_release<-24#: a number of past release to trace
+}else if(length(args) != 4){
+  write("Error: commandline arguments for <release_cycle(days)> <threshold of commits> <newest release date(yyyy-mm-dd)> <the number of going back release> are required", stderr())
+  q()
+}else{
+  release_cycle<-as.numeric(args[1])
+  threshold<-as.numeric(args[2])
+  newest_relase_date<-as.Date(args[3])
+  num_release<-as.numeric(args[4])
+}
 # import merged git log file
 git_log.df<-read.csv("git_log_main_change_merged.csv",header=T)
 git_log.df$author_date<-as.Date(git_log.df$author_date)

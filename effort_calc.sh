@@ -1,5 +1,6 @@
 #!/bin/sh
 #git clone
+#should be tested "git clone --recursive"
 homedir="`pwd`"
 wget http://git.chromium.org/gitweb/?a=project_index -O chromium_git_repo_tree.txt
 mkdir git_repo
@@ -42,4 +43,4 @@ python scripts/change_log_to_csv.py
 R --vanilla --slave < scripts/bind_main_logs.r
 R --vanilla --slave < scripts/bind_change_logs.r
 R --vanilla --slave < scripts/merge_main_change_logs.r
-R --vanilla --slave < scripts/calculate_metrics.r
+R --vanilla --slave --args 42 2 2014-06-20 24 < scripts/calculate_metrics.r
