@@ -43,4 +43,5 @@ python scripts/change_log_to_csv.py
 R --vanilla --slave < scripts/bind_main_logs.r
 R --vanilla --slave < scripts/bind_change_logs.r
 R --vanilla --slave < scripts/merge_main_change_logs.r
+# arguments are <release_cycle(days)> <threshold of commits> <newest release date(yyyy-mm-dd)> <the number of going back release>
 R --vanilla --slave --args 42 2 2014-06-20 24 < scripts/calculate_metrics.r
