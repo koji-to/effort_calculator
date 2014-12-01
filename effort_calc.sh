@@ -7,7 +7,7 @@ mkdir git_repo
 cd git_repo
 while read line;do
 fname=${line}
-git clone https://git.chromium.org/git/${fname}.git ${fname}
+git clone https://git.chromium.org/git/${fname} ${fname}
 done<"${homedir}/chromium_git_repo_tree.txt"
 cd ${homedir}
 
