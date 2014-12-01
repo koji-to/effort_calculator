@@ -6,7 +6,7 @@ wget http://git.chromium.org/gitweb/?a=project_index -O chromium_git_repo_tree.t
 mkdir git_repo
 cd git_repo
 while read line;do
-fname=${line%.*}
+fname=${line}
 git clone https://git.chromium.org/git/${fname}.git ${fname}
 done<"${homedir}/chromium_git_repo_tree.txt"
 cd ${homedir}
@@ -16,7 +16,7 @@ mkdir git_log_main
 logdir="`pwd`/git_log_main/"
 
 while read line;do
-git_dir=${line%.*}
+git_dir=${line}
 cd git_repo/$git_dir
 out_fname=${line##*/}
 git log --date=iso --pretty=format:"[[SOF]]%H<chromium>%ae<chromium>%ad<chromium>%ce<chromium>%cd[[EOF]]" >> "${logdir}${out_fname}_main.log"
@@ -29,7 +29,7 @@ mkdir git_log_change
 logdir="`pwd`/git_log_change/"
 
 while read line;do
-git_dir=${line%.*}
+git_dir=${line}
 cd git_repo/$git_dir
 out_fname=${line##*/}
 git log --numstat --pretty=format:"[[SOF]]%H[[EOF]]%n%b" >> "${logdir}${out_fname}_change.log"
