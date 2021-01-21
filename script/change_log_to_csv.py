@@ -49,7 +49,7 @@ for log_file in log_list:
                 file_name=match_ch_log.group(3)
                 if 'Dic' not in locals():
                     Dic={hash_value:{file_name:{'add_lines':add_lines,'del_lines':del_lines,'f_bugfix':f_bugfix,'f_refact':f_refact}}}
-                elif (not Dic.has_key(hash_value)):
+                elif (hash_value not in Dic):
                     Dic[hash_value]={file_name:{'add_lines':add_lines,'del_lines':del_lines,'f_bugfix':f_bugfix,'f_refact':f_refact}}
                 else:
                     Dic[hash_value][file_name]={'add_lines':add_lines,'del_lines':del_lines,'f_bugfix':f_bugfix,'f_refact':f_refact}
@@ -57,18 +57,18 @@ for log_file in log_list:
                 f_refact=0
             log=input_file.readline()
         input_file.close()    
-	if 'Dic' in locals():
-	        output_file=open(('git_log_change_proc/proc_'+log_file[:-1]),'w')
-       		for k in range(len(Dic)):
-	            each_hash_df=pd.DataFrame.from_dict(Dic[Dic.keys()[k]])
-        	    out_str_fname=len(each_hash_df.columns)
-	            out_str_addlines=each_hash_df.sum(axis=1)['add_lines']
-	            out_str_dellines=each_hash_df.sum(axis=1)['del_lines']
-        	    out_str_bugfix=each_hash_df.sum(axis=1)['f_bugfix']
-	            out_str_refact=each_hash_df.sum(axis=1)['f_refact']
-        	    out_str_hash=Dic.keys()[k]
-	            output_file.write(out_str_hash+','+str(out_str_fname)+','+str(out_str_addlines)+','+str(out_str_dellines)+','+str(out_str_bugfix)+','+str(out_str_refact)+'\n')
-	        output_file.close()
-	        del Dic
+    if 'Dic' in locals():
+            output_file=open(('git_log_change_proc/proc_'+log_file[:-1]),'w')
+            for k in range(len(Dic)):
+                each_hash_df=pd.DataFrame.from_dict(Dic[list(Dic.keys())[k]])
+                out_str_fname=len(each_hash_df.columns)
+                out_str_addlines=each_hash_df.sum(axis=1)['add_lines']
+                out_str_dellines=each_hash_df.sum(axis=1)['del_lines']
+                out_str_bugfix=each_hash_df.sum(axis=1)['f_bugfix']
+                out_str_refact=each_hash_df.sum(axis=1)['f_refact']
+                out_str_hash=list(Dic.keys())[k]
+                output_file.write(out_str_hash+','+str(out_str_fname)+','+str(out_str_addlines)+','+str(out_str_dellines)+','+str(out_str_bugfix)+','+str(out_str_refact)+'\n')
+            output_file.close()
+            del Dic
 elapsed_time = time.time() - start
 print("elapsed_time_{0}".format(elapsed_time))
